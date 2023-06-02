@@ -1,0 +1,31 @@
+{
+    "name": "logo",
+    "version": "1.0.0",
+    "description": "## **`Description`** Using Object-Oriented Programming, this application will create a user, based on their input to prompts, a simple SVG generated logo. </br></br>",
+    "main": "index.js",
+    "directories": {
+      "lib": "lib"
+    },
+    "scripts": {
+      "test": "jest"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Pdut3/Logo"
+    },
+    "keywords": [
+      "logo",
+
+    ],
+    "author": "Paul Dutile",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/Pdut3/Logo/issues"
+    },
+    "homepage": "https://github.com/Pdut3/Logo#readme",
+    "dependencies": {
+      "inquirer": "7.3.3",
+      "jest": "^29.5.0"
+    }
+  }
+  
