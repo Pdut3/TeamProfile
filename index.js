@@ -1,58 +1,100 @@
-//Variables to import inquirer, shapes, and fs from package.json
-const inquirer = require("inquirer");
-const { Triangle, Circle, Square } = require('./lib/shapes.js');
+const readline = require('readline');
 const fs = require('fs');
+const generateHTML = require('./generateHTML');
 
-// An array of questions for user input
-const questions = [{
-    type: 'input',
-    message:'Enter up to three characters for your logo.',
-    name:'Text'
-}, {
-    type: 'input',
-    message:'Enter a color or a hexadecimal number for the text.',
-    name:'TextColor'
-}, {
-    type: 'list',
-    message:'Choose a shape from the list below:',
-    name:'Shape',
-    choices: ['Triangle', 'Circle', 'Square']
-}, {
-    type: 'input',
-    message:'Enter a color or a hexadecimal number for the shape.',
-    name:'ShapeColor'
-}];
-// Function to create the logo
-function writeToFile(filename, data) {
-
-    fs.writeFile(filename, data, error => {
-        if (error) {
-           return console.log(error) //error message if fail to generate
-        } else {
-            console.log('Generated your logo.svg!') //Successful generation message.
-        }
-    });
-};
-
-// Function to initialize the app with prompt questions.
-function init() {
-   return inquirer.prompt(questions) 
-    .then((data) => {
-        console.log(data.ShapeColor)// 
-        let userShape 
-    if ('Triangle' === data.Shape) { //if statement for geometric shape choices
-        userShape = new Triangle
-    } else if ('Circle' === data.Shape) {
-        userShape = new Circle
-    } else {
-        userShape = new Square
-    } userShape.setColor(data.ShapeColor) // shape color
-    userShape.setTextColor(data.TextColor) // text color
-    userShape.setText(data.Text)
-    console.log(userShape)
-    return writeToFile('logo.svg', userShape.render()); // This renders the logo based on input.
-   
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
-};
 
-init();
+let teamMembers = [];
+
+// Prompt function to get team manager's information
+function promptManager() {
+  rl.question("Enter the team manager's name: ", (name) => {
+    rl.question("Enter the team manager's employee ID: ", (id) => {
+      rl.question("Enter the team manager's email address: ", (email) => {
+        rl.question("Enter the team manager's office number: ", (officeNumber) => {
+          const manager = {
+            name,
+            id,
+            email,
+            officeNumber,
+            role: 'Manager'
+          };
+          teamMembers.push(manager);
+          showMenu();
+        });
+      });
+    });
+  });
+}
+
+// Prompt function to get engineer's information
+function promptEngineer() {
+  rl.question("Enter the engineer's name: ", (name) => {
+    rl.question("Enter the engineer's employee ID: ", (id) => {
+      rl.question("Enter the engineer's email address: ", (email) => {
+        rl.question("Enter the engineer's GitHub username: ", (github) => {
+          const engineer = {
+            name,
+            id,
+            email,
+            github,
+            role: 'Engineer'
+          };
+          teamMembers.push(engineer);
+          showMenu();
+        });
+      });
+    });
+  });
+}
+
+// Prompt function to get intern's information
+function promptIntern() {
+  rl.question("Enter the intern's name: ", (name) => {
+    rl.question("Enter the intern's employee ID: ", (id) => {
+      rl.question("Enter the intern's email address: ", (email) => {
+        rl.question("Enter the intern's school: ", (school) => {
+          const intern = {
+            name,
+            id,
+            email,
+            school,
+            role: 'Intern'
+          };
+          teamMembers.push(intern);
+          showMenu();
+        });
+      });
+    });
+  });
+}
+
+// Show the menu options
+function showMenu() {
+  rl.question(
+    "Select an option:\n1. Add an engineer\n2. Add an intern\n3. Finish building my team\n",
+    (choice) => {
+      switch (choice) {
+        case '1':
+          promptEngineer();
+          break;
+        case '2':
+          promptIntern();
+          break;
+        case '3':
+          generateHTML(teamMembers); // Pass teamMembers array to generateHTML function
+          break;
+        default:
+          console.log("Invalid choice. Please try again.");
+          showMenu();
+          break;
+      }
+    }
+  );
+}
+
+// Start by prompting for the team manager's information
+promptManager();
