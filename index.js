@@ -1,6 +1,6 @@
 const readline = require('readline');
 const fs = require('fs');
-const generateHTML = require('./generateHTML');
+const generateHTML = require('./src/generateHTML');
 
 const rl = readline.createInterface({
   input: process.stdin,

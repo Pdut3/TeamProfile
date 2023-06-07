@@ -1,0 +1,19 @@
+{
+    "name": "TeamProfile",
+    "version": "1.0.0",
+    "description": "Command-line application to generate a team roster",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "test": "jest --coverage"
+    },
+    "author": "Paul Dutile",
+    "license": "MIT",
+    "dependencies": {
+      "inquirer": "^8.2.4"
+    },
+    "devDependencies": {
+      "jest": "^27.0.6"
+    }
+  }
+  
